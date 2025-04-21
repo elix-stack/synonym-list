@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Synonym List | Elix</title>
+    <style>
+      :root {
+        --bg-main: #f7f0f7;
+        --bg-navbar: #f2cfd0;
+        --bg-footer: #e7b6c2;
+        --text-main: #222;
+        --highlight: #fddde6;
+
+        --bg-main-dark: #1a1a1a;
+        --bg-navbar-dark: #333;
+        --bg-footer-dark: #444;
+        --text-main-dark: #eee;
+        --highlight-dark: #555;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+      }
+
+      body {
+        background-color: var(--bg-main);
+        color: var(--text-main);
+        padding-top: 80px;
+        padding-bottom: 60px;
+        transition: background 0.3s, color 0.3s;
+      }
+
+      body.dark-mode {
+        background-color: var(--bg-main-dark);
+        color: var(--text-main-dark);
+      }
+
+      .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: var(--bg-navbar);
+        border-bottom: 2px solid #888;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px;
+        z-index: 999;
+        transition: background 0.3s;
+        flex-wrap: wrap;
+      }
+
+      .dark-mode .navbar {
+        background-color: var(--bg-navbar-dark);
+      }
+
+      .navbar h1 {
+        font-size: 24px;
+        margin-left: 10px;
+      }
+
+      .search-container {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+
+      .search-container input,
+      .search-container button {
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        width: 250px;
+      }
+
+      .search-container button {
+        background-color: #f4e0e9;
+        cursor: pointer;
+      }
+
+      .dark-mode .search-container input,
+      .dark-mode .search-container button {
+        background-color: #222;
+        color: #eee;
+        border: 1px solid #555;
+      }
+
+      .toggle-dark {
+        cursor: pointer;
+        font-size: 14px;
+        padding: 6px 12px;
+        border-radius: 6px;
+        background-color: #fff;
+        border: 1px solid #aaa;
+      }
+
+      .dark-mode .toggle-dark {
+        background-color: #555;
+        color: #eee;
+        border-color: #888;
+      }
+
+      table {
+        width: 90%;
+        border-collapse: collapse;
+        table-layout: fixed;
+        margin: auto;
+      }
+
+      thead th {
+        background-color: var(--bg-navbar);
+      }
+
+      .dark-mode thead th {
+        background-color: var(--bg-navbar-dark);
+        color: #fff;
+      }
+
+      tbody {
+        text-align: center;
+      }
+
+      th,
+      td {
+        border: 1px solid #888;
+        padding: 8px;
+      }
+
+      .highlight {
+        background-color: var(--highlight);
+        font-weight: bold;
+        padding: 2px;
+        border-radius: 3px;
+      }
+
+      .dark-mode .highlight {
+        background-color: var(--highlight-dark);
+        color: #fff;
+      }
+
+      footer {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        background-color: var(--bg-footer);
+        color: #333;
+        text-align: center;
+        padding: 10px;
+        font-size: 0.9em;
+        z-index: 999;
+        transition: background 0.3s;
+      }
+
+      .dark-mode footer {
+        background-color: var(--bg-footer-dark);
+        color: #eee;
+      }
+
+      #backToTop {
+        padding: 5px 10px;
+        font-size: 0.9em;
+        background-color: #fff;
+        color: #0077aa;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: transform 0.3s;
+      }
+
+      #backToTop:hover {
+        background-color: #eee;
+        transform: scale(1.05);
+      }
+
+      .navbar a {
+        text-decoration: none;
+        color: inherit;
+        font-size: 12px;
+        transition: transform 0.3s;
+      }
+
+      .navbar a:hover {
+        color: gray;
+        transform: scale(1.05);
+      }
+
+      @media (max-width: 1200px) {
+        table {
+          margin-top: 80px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .navbar h1 {
+          font-size: 20px;
+        }
+
+        .search-container input {
+          width: 180px;
+          padding: 6px;
+        }
+
+        .search-container button,
+        .toggle-dark {
+          font-size: 12px;
+          padding: 5px 8px;
+        }
+
+        table {
+          margin-top: 90px; /* 🆕 Tambahan margin agar header table turun sedikit */
+        }
+
+        td {
+          font-size: 14px;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .search-container {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .search-container input {
+          width: 100%;
+        }
+
+        .search-container button,
+        .toggle-dark {
+          width: 100%;
+          font-size: 12px;
+          padding: 6px;
+        }
+
+        table {
+          margin-top: 100px; /* 🆕 Margin lebih besar di layar lebih kecil */
+        }
+
+        td {
+          font-size: 12px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="navbar">
+      <h1>Synonym List</h1>
+      <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Search..." autocomplete="off" />
+        <button type="button" id="searchButton">Search</button>
+        <button class="toggle-dark" id="toggleDarkMode">🌙 Dark Mode</button>
+      </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Word</th>
+          <th>Synonym</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+
+    <footer>
+      <p>&copy; 2025 Muhammad Ali Yusuf | All Rights Reserved</p>
+      <button id="backToTop">↑ Top</button>
+    </footer>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const sheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQxmmTwpooGfCz_tFNJrE50m2oX6vmSDHSaA6RTB4fIoDhB7jd3M4r7Dun7YU5Obg/pub?gid=1834836093&single=true&output=csv';
+        fetchData(sheetURL);
+
+        const toggleBtn = document.getElementById('toggleDarkMode');
+        toggleBtn.addEventListener('click', () => {
+          document.body.classList.toggle('dark-mode');
+          toggleBtn.textContent = document.body.classList.contains('dark-mode') ? '☀️ Light Mode' : '🌙 Dark Mode';
+        });
+      });
+
+      function fetchData(sheetURL) {
+        fetch(sheetURL)
+          .then((response) => response.text())
+          .then((data) => populateTable(data))
+          .catch((error) => console.error('Gagal mengambil data:', error));
+      }
+
+      function populateTable(data) {
+        const tableBody = document.getElementById('tableBody');
+        tableBody.innerHTML = '';
+
+        const rows = data.split('\n').slice(1);
+        rows.forEach((row) => {
+          const columns = row.split(',');
+          const newRow = document.createElement('tr');
+
+          columns.forEach((column) => {
+            const cell = document.createElement('td');
+            cell.textContent = column.trim();
+            newRow.appendChild(cell);
+          });
+
+          tableBody.appendChild(newRow);
+        });
+      }
+
+      function searchTable() {
+        const searchValue = document.getElementById('searchInput').value.toLowerCase().trim();
+        const tableBody = document.getElementById('tableBody');
+        const rows = Array.from(tableBody.querySelectorAll('tr'));
+        let found = false;
+
+        rows.forEach((row) => {
+          let cells = row.getElementsByTagName('td');
+          let match = false;
+
+          for (let cell of cells) {
+            let words = cell.textContent.split(' ');
+            let newText = words
+              .map((word) => {
+                if (word.toLowerCase() === searchValue) {
+                  match = true;
+                  return `<span class="highlight">${word}</span>`;
+                }
+                return word;
+              })
+              .join(' ');
+
+            cell.innerHTML = newText;
+          }
+
+          if (match && !found) {
+            row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            found = true;
+          }
+        });
+
+        if (!found) {
+          alert(`Kata "${searchValue}" tidak ditemukan dalam daftar.`);
+        }
+      }
+
+      document.getElementById('searchButton').addEventListener('click', searchTable);
+      document.getElementById('backToTop').addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    </script>
+  </body>
+</html>
