@@ -30,4 +30,4 @@ If you have any questions or suggestions, feel free to reach out through this [c
 
 ## 📝 License
 
-This project is licensed under the [MIT License](https://opensource.org/licenses/MIT). You are free to use, modify, and distribute the code as long as you provide proper attribution to the original author.
+This project is licensed under the [MIT License](https://opensource.org/licenses/MIT). You can also view the [LICENSE](LICENSE) file in this repository. You are free to use, modify, and distribute the code as long as you provide proper attribution to the original author.
